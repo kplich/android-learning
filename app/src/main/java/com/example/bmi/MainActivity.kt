@@ -95,6 +95,7 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         outState?.putString("result", bmiResult.text.toString())
         outState?.putString("category", bmiCategory.text.toString())
+        outState?.putInt("color", bmiResult.currentTextColor)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
@@ -102,5 +103,11 @@ class MainActivity : AppCompatActivity() {
 
         bmiResult.text = savedInstanceState?.getString("result").toString()
         bmiCategory.text = savedInstanceState?.getString("category").toString()
+
+        val color = savedInstanceState?.getInt("color")
+        if (color != null) {
+            bmiResult.setTextColor(color)
+            bmiCategory.setTextColor(color)
+        }
     }
 }
