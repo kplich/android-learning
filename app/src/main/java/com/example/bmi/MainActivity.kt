@@ -3,6 +3,7 @@ package com.example.bmi
 import java.math.BigDecimal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import com.example.bmi.logic.BMICategory
 import com.example.bmi.logic.BMIFromKgCm
 import kotlinx.android.synthetic.main.activity_main.*
@@ -58,6 +59,29 @@ class MainActivity : AppCompatActivity() {
                     BMICategory.OVERWEIGHT -> getString(R.string.overweight)
                     BMICategory.OBESE -> getString(R.string.obese)
                 }
+
+                bmiResult.setTextColor(
+                    ContextCompat.getColor(applicationContext,
+                        when (calculatedCategory) {
+                            BMICategory.UNDERWEIGHT -> R.color.persianGreen
+                            BMICategory.NORMAL -> R.color.lapisLazuli
+                            BMICategory.OVERWEIGHT -> R.color.pompeianRed
+                            BMICategory.OBESE -> R.color.flamboyantViolet
+                        }
+                    )
+                )
+
+                bmiCategory.setTextColor(
+                    ContextCompat.getColor(applicationContext,
+                        when (calculatedCategory) {
+                            BMICategory.UNDERWEIGHT -> R.color.persianGreen
+                            BMICategory.NORMAL -> R.color.lapisLazuli
+                            BMICategory.OVERWEIGHT -> R.color.pompeianRed
+                            BMICategory.OBESE -> R.color.flamboyantViolet
+                        }
+                    )
+                )
+
             }
             catch (e: Exception) {
                 bmiResult.text = ""
@@ -65,5 +89,18 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putString("result", bmiResult.text.toString())
+        outState?.putString("category", bmiCategory.text.toString())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        bmiResult.text = savedInstanceState?.getString("result").toString()
+        bmiCategory.text = savedInstanceState?.getString("category").toString()
     }
 }

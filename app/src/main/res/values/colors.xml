@@ -3,4 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="persianGreen">#FF00A693</color>
+    <color name="lapisLazuli">#FF3366CC</color>
+    <color name="pompeianRed">#FFB80000</color>
+    <color name="flamboyantViolet">#FF35001C</color>
+    <color name="dehydratedGreen">#FF0a1c23</color>
 </resources>
