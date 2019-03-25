@@ -3,9 +3,6 @@ package com.example.bmi
 import java.math.BigDecimal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.EditText
 import com.example.bmi.logic.BMICategory
 import com.example.bmi.logic.BMIFromKgCm
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         countButton.setOnClickListener {
+            //TODO: some validation methods?
             // read mass
             var mass: Int
             try {
@@ -27,6 +25,11 @@ class MainActivity : AppCompatActivity() {
                 mass = -1
             }
 
+            if(mass == 0) {
+                massInput.error = getString(R.string.mass_neq_zero)
+                mass = -1
+            }
+
             // read height
             var height: Int
             try {
@@ -34,6 +37,10 @@ class MainActivity : AppCompatActivity() {
             }
             catch (e: NumberFormatException) {
                 heightInput.error = getString(R.string.height_input_error)
+                height = -1
+            }
+            if(height == 0) {
+                heightInput.error = getString(R.string.height_neq_zero)
                 height = -1
             }
 

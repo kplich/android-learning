@@ -120,7 +120,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/countButton"
                 app:layout_constraintHorizontal_bias="0.0"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp"
+                android:textAlignment="center"/>
 
         <Button
                 android:text="@string/count_button_text"

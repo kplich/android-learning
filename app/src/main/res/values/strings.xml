@@ -3,9 +3,11 @@
     <string name="mass_description">Mass [kg]</string>
     <string name="mass_fill_in_hint">A positive integer here!</string>
     <string name="mass_input_error">Can\'t understand input mass.</string>
+    <string name="mass_neq_zero">"Mass can't be equal to zero."</string>
     <string name="height_description">Height [cm]</string>
     <string name="height_fill_in_hint">Also a positive integer here!</string>
     <string name="height_input_error">Can\'t understand input height.</string>
+    <string name="height_neq_zero">"Height can't be equal to zero."</string>
     <string name="bmi_description">Your BMI:</string>
     <string name="underweight">You are underweight.</string>
     <string name="normal">Your weight is normal.</string>
