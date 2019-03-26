@@ -1,14 +1,20 @@
 package com.example.bmi
 
+import android.content.Intent
 import java.math.BigDecimal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import com.example.bmi.logic.BMICategory
 import com.example.bmi.logic.BMIFromKgCm
+import com.example.bmi.logic.BMIFromLbsInch
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    var imperialUnits = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             // calculate BMI
-            val bmiObject = BMIFromKgCm(mass, height)
+            val bmiObject = if(imperialUnits) BMIFromLbsInch(mass, height) else BMIFromKgCm(mass, height)
             try {
                 val calculatedBMI = BigDecimal(bmiObject.countBMI())
 
@@ -96,6 +102,7 @@ class MainActivity : AppCompatActivity() {
         outState?.putString("result", bmiResult.text.toString())
         outState?.putString("category", bmiCategory.text.toString())
         outState?.putInt("color", bmiResult.currentTextColor)
+        outState?.putBoolean("imperial", imperialUnits)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
@@ -108,6 +115,55 @@ class MainActivity : AppCompatActivity() {
         if (color != null) {
             bmiResult.setTextColor(color)
             bmiCategory.setTextColor(color)
+        }
+
+        val foundImperial = savedInstanceState?.getBoolean("imperial")
+        if (foundImperial != null) {
+            imperialUnits = foundImperial
+
+            // TODO: these guys repeat
+            if(imperialUnits) {
+                massDescription.text = getString(R.string.mass_description_lbs)
+                heightDescription.text = getString(R.string.height_description_inch)
+            }
+            else {
+                massDescription.text = getString(R.string.mass_description_kg)
+                heightDescription.text = getString(R.string.height_description_cm)
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_activity_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.aboutMeItem -> {
+                val intent = Intent(this, AboutMe::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.aboutMeUnits -> {
+                imperialUnits = !imperialUnits
+                item.isChecked = imperialUnits
+
+                if(imperialUnits) {
+                    massDescription.text = getString(R.string.mass_description_lbs)
+                    heightDescription.text = getString(R.string.height_description_inch)
+                }
+                else {
+                    massDescription.text = getString(R.string.mass_description_kg)
+                    heightDescription.text = getString(R.string.height_description_cm)
+                }
+
+                bmiResult.text = getString(R.string.empty_text)
+                bmiCategory.text = getString(R.string.empty_text)
+
+                return true
+            }
+            else -> true
         }
     }
 }
