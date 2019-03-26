@@ -10,6 +10,7 @@ class BmiInfo : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bmi_info)
 
-        textView.text = intent.getStringExtra("bmiResult")
+        infoBmiResult.text = intent.getStringExtra("bmiResult")
+        infoBmiCategory.text = intent.getStringExtra("bmiCategory")
     }
 }

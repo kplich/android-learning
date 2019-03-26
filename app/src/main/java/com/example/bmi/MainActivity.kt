@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
             val bmiObject = if(imperialUnits) BMIFromLbsInch(mass, height) else BMIFromKgCm(mass, height)
             try {
                 val calculatedBMI = BigDecimal(bmiObject.countBMI())
-
                 val calculatedCategory = bmiObject.getCategory()
 
                 bmiResult.text = String.format(calculatedBMI.setScale(2, BigDecimal.ROUND_HALF_UP).toString())
@@ -66,28 +65,18 @@ class MainActivity : AppCompatActivity() {
                     BMICategory.OBESE -> getString(R.string.obese)
                 }
 
-                bmiResult.setTextColor(
-                    ContextCompat.getColor(applicationContext,
-                        when (calculatedCategory) {
-                            BMICategory.UNDERWEIGHT -> R.color.persianGreen
-                            BMICategory.NORMAL -> R.color.lapisLazuli
-                            BMICategory.OVERWEIGHT -> R.color.pompeianRed
-                            BMICategory.OBESE -> R.color.flamboyantViolet
-                        }
-                    )
+                val resultingColor = ContextCompat.getColor(applicationContext,
+                    when (calculatedCategory) {
+                        BMICategory.UNDERWEIGHT -> R.color.persianGreen
+                        BMICategory.NORMAL -> R.color.lapisLazuli
+                        BMICategory.OVERWEIGHT -> R.color.pompeianRed
+                        BMICategory.OBESE -> R.color.flamboyantViolet
+                    }
                 )
 
-                bmiCategory.setTextColor(
-                    ContextCompat.getColor(applicationContext,
-                        when (calculatedCategory) {
-                            BMICategory.UNDERWEIGHT -> R.color.persianGreen
-                            BMICategory.NORMAL -> R.color.lapisLazuli
-                            BMICategory.OVERWEIGHT -> R.color.pompeianRed
-                            BMICategory.OBESE -> R.color.flamboyantViolet
-                        }
-                    )
-                )
-
+                bmiResult.setTextColor(resultingColor)
+                bmiCategory.setTextColor(resultingColor)
+                bmiInfoButton.background.setTint(resultingColor)
             }
             catch (e: Exception) {
                 bmiResult.text = ""
@@ -100,6 +89,7 @@ class MainActivity : AppCompatActivity() {
             if (bmiResult.text.toString() != "") {
                 val intent = Intent(this, BmiInfo::class.java)
                 intent.putExtra("bmiResult", bmiResult.text.toString())
+                intent.putExtra("bmiCategory", bmiCategory.text.toString())
                 startActivity(intent)
             }
         }

@@ -14,50 +14,51 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            >
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0">
 
         <ImageView
                 android:layout_width="match_parent"
                 tools:srcCompat="@tools:sample/avatars"
-                android:id="@+id/imageView2"
+                android:id="@+id/bmiInfoImage"
                 android:layout_height="282dp"
                 android:adjustViewBounds="true"/>
 
         <TextView
-                android:text="TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView"
-                android:layout_marginTop="92dp"
-                android:layout_below="@+id/imageView2"
+                android:id="@+id/infoBmiResult"
+                android:layout_marginTop="80dp"
+                android:layout_below="@+id/bmiInfoImage"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="41dp"
-                tools:text="wskaźnik Bmi"/>
+                android:layout_marginStart="20dp"
+                android:textSize="30sp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="208dp"/>
 
         <TextView
-                android:text="TextView"
-                android:layout_width="74dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView4"
-                android:layout_toEndOf="@+id/textView"
-                android:layout_marginStart="188dp"
-                android:layout_marginTop="92dp"
-                android:layout_below="@+id/imageView2"
+                android:id="@+id/infoBmiCategory"
+                android:layout_marginTop="84dp"
+                android:layout_below="@+id/bmiInfoImage"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="49dp"
-                tools:text="opis krótki"/>
+                android:layout_marginEnd="20dp"
+                android:layout_alignParentStart="true"
+                android:textAlignment="center"
+                android:layout_marginStart="266dp"
+                android:textSize="24sp"/>
 
         <TextView
-                android:text="TextView"
-                android:layout_width="91dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView5"
-                android:layout_marginTop="94dp"
-                android:layout_below="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:id="@+id/infoBmiDescription"
+                android:layout_marginTop="90dp"
+                android:layout_below="@+id/infoBmiResult"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="163dp"
+                android:layout_marginEnd="0dp"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="157dp"
-                tools:text="opis długi"/>
+                android:layout_marginStart="0dp"
+                android:textAlignment="center"/>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

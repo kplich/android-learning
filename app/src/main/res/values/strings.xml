@@ -13,11 +13,15 @@
     <string name="height_fill_in_hint">Also a positive integer here!</string>
     <string name="height_input_error">Can\'t understand input height.</string>
     <string name="height_neq_zero">"Height can't be equal to zero."</string>
-    <string name="bmi_description">Your BMI:</string>
+    <string name="your_bmi">Your BMI:</string>
     <string name="underweight">MALNUTRITION</string>
+    <string name="underweight_description">It seems you\'re malnutritioned. Make sure you get enough calories and vitamins everyday!</string>
     <string name="normal">NORMAL WEIGHT</string>
+    <string name="normal_description">It seems your weight is correct. Keep it up!</string>
     <string name="overweight">OVERWEIGHT</string>
+    <string name="overweight_description">Your BMI is a little too high. You may have to cut your calorie intake.</string>
     <string name="obese">OBESITY</string>
+    <string name="obese_description">You may be obese. Come up with a plan to lose some weight as soon as possible. Obesity can increase risk of death!</string>
     <string name="count_button_text">Count BMI</string>
 
     <string name="about_me_nickname">kplich</string>
