@@ -1,6 +1,6 @@
 package com.example.bmi
 
-import com.example.bmi.logic.BMIFromKgCm
+import com.example.bmi.logic.bmi.BMIFromKgCm
 import org.junit.Test
 
 import org.junit.Assert.*

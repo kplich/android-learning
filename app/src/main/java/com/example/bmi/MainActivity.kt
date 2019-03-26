@@ -1,20 +1,16 @@
 package com.example.bmi
 
 import android.content.Intent
-import java.math.BigDecimal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.content.ContextCompat
-import com.example.bmi.logic.BMICategory
-import com.example.bmi.logic.BMIFromKgCm
-import com.example.bmi.logic.BMIFromLbsInch
+import com.example.bmi.logic.state.AppState
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    var imperialUnits = false
+    private val state = AppState()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +27,6 @@ class MainActivity : AppCompatActivity() {
                 massInput.error = getString(R.string.mass_input_error)
                 mass = -1
             }
-
             if(mass == 0) {
                 massInput.error = getString(R.string.mass_neq_zero)
                 mass = -1
@@ -51,38 +46,10 @@ class MainActivity : AppCompatActivity() {
                 height = -1
             }
 
-            // calculate BMI
-            val bmiObject = if(imperialUnits) BMIFromLbsInch(mass, height) else BMIFromKgCm(mass, height)
-            try {
-                val calculatedBMI = BigDecimal(bmiObject.countBMI())
-                val calculatedCategory = bmiObject.getCategory()
+            //update state
+            state.setMassAndHeight(mass, height)
 
-                bmiResult.text = String.format(calculatedBMI.setScale(2, BigDecimal.ROUND_HALF_UP).toString())
-                bmiCategory.text = when (calculatedCategory) {
-                    BMICategory.UNDERWEIGHT -> getString(R.string.underweight)
-                    BMICategory.NORMAL -> getString(R.string.normal)
-                    BMICategory.OVERWEIGHT -> getString(R.string.overweight)
-                    BMICategory.OBESE -> getString(R.string.obese)
-                }
-
-                val resultingColor = ContextCompat.getColor(applicationContext,
-                    when (calculatedCategory) {
-                        BMICategory.UNDERWEIGHT -> R.color.persianGreen
-                        BMICategory.NORMAL -> R.color.lapisLazuli
-                        BMICategory.OVERWEIGHT -> R.color.pompeianRed
-                        BMICategory.OBESE -> R.color.flamboyantViolet
-                    }
-                )
-
-                bmiResult.setTextColor(resultingColor)
-                bmiCategory.setTextColor(resultingColor)
-                bmiInfoButton.background.setTint(resultingColor)
-            }
-            catch (e: Exception) {
-                bmiResult.text = ""
-                bmiCategory.text = ""
-            }
-
+            updateTextViews()
         }
 
         bmiInfoButton.setOnClickListener {
@@ -97,43 +64,30 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
+        outState?.putBundle("state", state.toBundle())
         outState?.putString("result", bmiResult.text.toString())
         outState?.putString("category", bmiCategory.text.toString())
         outState?.putInt("color", bmiResult.currentTextColor)
-        outState?.putBoolean("imperial", imperialUnits)
+        outState?.putBoolean("imperial", state.getImperialUnits())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        bmiResult.text = savedInstanceState?.getString("result").toString()
-        bmiCategory.text = savedInstanceState?.getString("category").toString()
+        val stateBundle = savedInstanceState!!.getBundle("state")
+        val mass = stateBundle!!.getInt("mass")
+        val height = stateBundle.getInt("height")
+        val foundImperialUnits = stateBundle.getBoolean("imperialUnits")
 
-        val color = savedInstanceState?.getInt("color")
-        if (color != null) {
-            bmiResult.setTextColor(color)
-            bmiCategory.setTextColor(color)
-        }
+        state.setImperialUnits(foundImperialUnits)
+        state.setMassAndHeight(mass, height)
 
-        val foundImperial = savedInstanceState?.getBoolean("imperial")
-        if (foundImperial != null) {
-            imperialUnits = foundImperial
-
-            // TODO: these guys repeat
-            if(imperialUnits) {
-                massDescription.text = getString(R.string.mass_description_lbs)
-                heightDescription.text = getString(R.string.height_description_inch)
-            }
-            else {
-                massDescription.text = getString(R.string.mass_description_kg)
-                heightDescription.text = getString(R.string.height_description_cm)
-            }
-        }
+        updateTextViews()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_activity_menu, menu)
-        menu?.findItem(R.id.aboutMeUnits)?.isChecked = imperialUnits
+        menu?.findItem(R.id.aboutMeUnits)?.isChecked = state.getImperialUnits()
         return true
     }
 
@@ -145,24 +99,26 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.aboutMeUnits -> {
-                imperialUnits = !imperialUnits
-                item.isChecked = imperialUnits
+                state.setImperialUnits(!state.getImperialUnits())
+                item.isChecked = state.getImperialUnits()
 
-                if(imperialUnits) {
-                    massDescription.text = getString(R.string.mass_description_lbs)
-                    heightDescription.text = getString(R.string.height_description_inch)
-                }
-                else {
-                    massDescription.text = getString(R.string.mass_description_kg)
-                    heightDescription.text = getString(R.string.height_description_cm)
-                }
-
-                bmiResult.text = getString(R.string.empty_text)
-                bmiCategory.text = getString(R.string.empty_text)
+                updateTextViews()
 
                 return true
             }
             else -> true
         }
+    }
+
+    private fun updateTextViews() {
+        massDescription.text = state.getMassDescription()
+        heightDescription.text = state.getHeightDescription()
+
+        bmiResult.text = state.getBmi().toString()
+        bmiCategory.text = state.getShortDescription()
+
+        bmiResult.setTextColor(state.getColor())
+        bmiCategory.setTextColor(state.getColor())
+        bmiInfoButton.background.setTint(state.getColor())
     }
 }
