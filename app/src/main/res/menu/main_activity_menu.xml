@@ -8,5 +8,6 @@
     <item
             android:title="@string/about_me_units_title"
             android:id="@+id/aboutMeUnits"
-            android:checkable="true"/>
+            android:checkable="true"
+            android:saveEnabled="true"/>
 </menu>
