@@ -14,10 +14,10 @@
     <string name="height_input_error">Can\'t understand input height.</string>
     <string name="height_neq_zero">"Height can't be equal to zero."</string>
     <string name="bmi_description">Your BMI:</string>
-    <string name="underweight">You are underweight.</string>
-    <string name="normal">Your weight is normal.</string>
-    <string name="overweight">You are overweight.</string>
-    <string name="obese">You are obese.</string>
+    <string name="underweight">MALNUTRITION</string>
+    <string name="normal">NORMAL WEIGHT</string>
+    <string name="overweight">OVERWEIGHT</string>
+    <string name="obese">OBESITY</string>
     <string name="count_button_text">Count BMI</string>
 
     <string name="about_me_nickname">kplich</string>

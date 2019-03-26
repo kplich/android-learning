@@ -120,7 +120,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:paddingBottom="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/countButton"
+                app:layout_constraintBottom_toTopOf="@+id/countBmiButton"
                 app:layout_constraintHorizontal_bias="0.0"
                 android:layout_marginBottom="8dp"
                 android:textAlignment="center"/>
@@ -129,7 +129,7 @@
                 android:text="@string/count_button_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/countButton"
+                android:id="@+id/countBmiButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintHorizontal_bias="0.501"

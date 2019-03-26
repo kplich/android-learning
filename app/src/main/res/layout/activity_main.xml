@@ -87,13 +87,12 @@
             android:text="@string/count_button_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/countButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
+            android:id="@+id/countBmiButton"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
     <TextView
             android:text="@string/bmi_description"
@@ -126,10 +125,23 @@
             android:layout_height="wrap_content"
             android:id="@+id/bmiCategory"
             android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/countButton"
+            app:layout_constraintBottom_toTopOf="@+id/countBmiButton"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_dialog_info"
+            android:id="@+id/bmiInfoButton"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            style="@android:style/Widget.DeviceDefault.ImageButton"
+            android:tint="@color/colorPrimaryDark"
+            android:backgroundTint="@color/colorPrimary"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
