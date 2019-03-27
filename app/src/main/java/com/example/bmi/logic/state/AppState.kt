@@ -95,6 +95,10 @@ class AppState {
         return imperialUnits
     }
 
+    fun isValid(): Boolean {
+        return !isInInvalidState
+    }
+
     fun changeUnits() {
         imperialUnits = !imperialUnits
 

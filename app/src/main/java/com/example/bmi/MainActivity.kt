@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.EditText
 import com.example.bmi.logic.state.AppState
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
 
     private val state = AppState()
 
@@ -20,35 +22,19 @@ class MainActivity : AppCompatActivity() {
         state.setResources(resources)
 
         countBmiButton.setOnClickListener {
-            // read mass
-            val mass = validateInput(
-                massInput,
-                getString(R.string.mass_input_error),
-                Pair({result -> result != 0}, getString(R.string.mass_neq_zero))
-            )
-
-            // read height
-            val height = validateInput(
-                heightInput,
-                getString(R.string.height_input_error),
-                Pair({result -> result != 0}, getString(R.string.height_neq_zero))
-            )
-
-            //update state
-            state.setMassAndHeight(mass, height)
-
-            updateTextViews()
+            val mass = validateInput(massInput, getString(R.string.mass_input_error), Pair({result -> result != 0}, getString(R.string.mass_neq_zero)))
+            val height = validateInput(heightInput, getString(R.string.height_input_error), Pair({result -> result != 0}, getString(R.string.height_neq_zero)))
+            state.setMassAndHeight(mass, height) // update state
+            updateUI() // update interface
         }
 
         bmiInfoButton.setOnClickListener {
-            if (bmiResult.text.toString() != "") {
-                val intent = Intent(this, BmiInfo::class.java)
-                intent.putExtra("result", state.getBmi().toString())
-                intent.putExtra("category", state.getShortDescription())
-                intent.putExtra("description", state.getLongDescription())
-                intent.putExtra("color", state.getColor())
-                startActivity(intent)
-            }
+            val intent = Intent(this, BmiInfo::class.java)
+            intent.putExtra("result", state.getBmi().toString())
+            intent.putExtra("category", state.getShortDescription())
+            intent.putExtra("description", state.getLongDescription())
+            intent.putExtra("color", state.getColor())
+            startActivity(intent)
         }
     }
 
@@ -69,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             throw IllegalStateException("Null state bundle!")
         }
 
-        updateTextViews()
+        updateUI()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -89,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                 state.changeUnits()
                 item.isChecked = state.getImperialUnits()
 
-                updateTextViews()
+                updateUI()
 
                 return true
             }
@@ -97,7 +83,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateTextViews() {
+    /**
+     * Method for re-calculating all texts and colors viewed on screen.
+     * Uses information from application state.
+     */
+    private fun updateUI() {
         massDescription.text = state.getMassDescription()
         heightDescription.text = state.getHeightDescription()
 
@@ -106,9 +96,27 @@ class MainActivity : AppCompatActivity() {
 
         bmiResult.setTextColor(state.getColor())
         bmiCategory.setTextColor(state.getColor())
-        bmiInfoButton.background.setTint(state.getColor())
+
+        if(state.isValid()) {
+            bmiInfoButton.visibility = VISIBLE
+            bmiInfoButton.isEnabled = true
+            bmiInfoButton.background.setTint(state.getColor())
+        }
+        else {
+            bmiInfoButton.visibility = INVISIBLE
+            bmiInfoButton.isEnabled = false
+            bmiInfoButton.background.setTint(state.getColor())
+        }
     }
 
+    /**
+     * Method for validating input from a field with given conditions.
+     * @param field TextField from which a value is read
+     * @param errorMessage general error message displayed when reading input fails
+     * @param validationRules pairs comprised of functions validating the result and corresponding error messages
+     * if validation fails
+     * @return number conforming to given conditions or null when input doesn't conform to constraints
+     */
     private fun validateInput(field: EditText, errorMessage: String, vararg validationRules: Pair<(Int) -> (Boolean), String>): Int? {
         var result: Int? = null
         var ruleBroken = false
