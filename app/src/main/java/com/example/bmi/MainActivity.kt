@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.aboutMeUnits -> {
-                state.setImperialUnits(!state.getImperialUnits())
+                state.changeUnits()
                 item.isChecked = state.getImperialUnits()
 
                 updateTextViews()

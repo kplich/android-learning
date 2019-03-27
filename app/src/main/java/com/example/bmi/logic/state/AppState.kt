@@ -12,6 +12,7 @@ import java.math.RoundingMode
 class AppState {
 
     private lateinit var resources: Resources
+
     private var imperialUnits: Boolean = false
     private var bmi: BMI = BMIFromKgCm(0, 0)
     private var isInInvalidState = true
@@ -28,7 +29,7 @@ class AppState {
     }
 
     fun getBmi(): BigDecimal? = if (isInInvalidState) null
-                               else BigDecimal.valueOf(bmi.countBMI()).setScale(2, RoundingMode.HALF_UP)
+                                else BigDecimal.valueOf(bmi.countBMI()).setScale(2, RoundingMode.HALF_UP)
 
     fun getMassDescription(): String {
         return if(imperialUnits) {
@@ -94,17 +95,17 @@ class AppState {
         return imperialUnits
     }
 
-    fun setImperialUnits(units: Boolean) {
-        if(units != imperialUnits) {
-            imperialUnits = units
+    fun changeUnits() {
+        imperialUnits = !imperialUnits
 
-            if(imperialUnits) {
-                bmi = BMIFromLbsInch(0, 0)
-            }
-            else {
-                bmi = BMIFromKgCm(0, 0)
-            }
+        if(imperialUnits) {
+            bmi = BMIFromLbsInch(0, 0)
         }
+        else {
+            bmi = BMIFromKgCm(0, 0)
+        }
+
+        isInInvalidState = true
     }
 
     fun toBundle(): Bundle {
@@ -126,8 +127,8 @@ class AppState {
         isInInvalidState = bundle.getBoolean("invalidState")
 
         if(!isInInvalidState) {
-            bmi.mass = bundle.getInt("mass")
-            bmi.height = bundle.getInt("height")
+            bmi = if(imperialUnits) BMIFromLbsInch(bundle.getInt("mass"), bundle.getInt("height"))
+                  else BMIFromKgCm(bundle.getInt("mass"), bundle.getInt("height"))
         }
     }
 
