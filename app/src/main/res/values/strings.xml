@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">BMI</string>
+
+    <string name="main_activity_photo_description">Photo contains colorful vegetables on a table, symbolizing healthy lifestyle and diet.</string>
+    <string name="main_button_description">This button will show you more information about your BMI.</string>
+
     <string name="empty_text"></string>
     <string name="about_me_menu_item_title">About me</string>
     <string name="about_me_units_title">Imperial units</string>
@@ -14,6 +18,7 @@
     <string name="height_input_error">Can\'t understand input height.</string>
     <string name="height_neq_zero">"Height can't be equal to zero."</string>
     <string name="your_bmi">Your BMI:</string>
+    <string name="count_button_text">Count BMI</string>
     <string name="underweight">MALNUTRITION</string>
     <string name="underweight_description">It seems you\'re malnutritioned. Make sure you get enough calories and vitamins everyday!</string>
     <string name="normal">NORMAL WEIGHT</string>
@@ -22,9 +27,9 @@
     <string name="overweight_description">Your BMI is a little too high. You may have to cut your calorie intake.</string>
     <string name="obese">OBESITY</string>
     <string name="obese_description">You may be obese. Come up with a plan to lose some weight as soon as possible. Obesity can increase risk of death!</string>
-    <string name="count_button_text">Count BMI</string>
 
     <string name="about_me_nickname">kplich</string>
     <string name="about_me_description">Android developer, producer, meme lover. Hire me!</string>
     <string name="about_me_button">DO NOT CLICK</string>
+    <string name="about_me_toast">I\'m disappointed.</string>
 </resources>

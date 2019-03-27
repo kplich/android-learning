@@ -1,6 +1,6 @@
 package com.example.bmi
 
-import com.example.bmi.logic.bmi.BMIFromKgCm
+import com.example.bmi.logic.bmi.BMI
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -18,13 +18,13 @@ class ExampleUnitTest {
 
     @Test
     fun from_valid_data_return_BMI() {
-        val actualBMI = BMIFromKgCm(65, 170).countBMI()
+        val actualBMI = BMI(65, 170).countBMI(false)
         assertEquals(22.491, actualBMI, 0.001)
     }
 
     @Test
     fun from_other_valid_data_return_BMI() {
-        val actualBMI = BMIFromKgCm(80, 190).countBMI()
+        val actualBMI = BMI(80, 190).countBMI(false)
         assertEquals(22.161, actualBMI, 0.001)
     }
 }

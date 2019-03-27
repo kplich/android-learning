@@ -6,16 +6,12 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_about_me.*
 
 class AboutMe : AppCompatActivity() {
-    companion object {
-        const val TOAST_TEXT = "I'm disappointed."
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about_me)
 
         aboutMeButton.setOnClickListener {
-            Toast.makeText(this, TOAST_TEXT, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.about_me_toast), Toast.LENGTH_SHORT).show()
         }
     }
 }
