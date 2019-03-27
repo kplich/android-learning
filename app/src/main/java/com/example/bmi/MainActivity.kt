@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 import com.example.bmi.logic.state.AppState
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,34 +20,19 @@ class MainActivity : AppCompatActivity() {
         state.setResources(resources)
 
         countBmiButton.setOnClickListener {
-            //TODO: some validation methods?
             // read mass
-            var mass: Int
-            try {
-                mass = massInput.text.toString().toInt()
-            }
-            catch (e: NumberFormatException) {
-                massInput.error = getString(R.string.mass_input_error)
-                mass = -1
-            }
-            if(mass == 0) {
-                massInput.error = getString(R.string.mass_neq_zero)
-                mass = -1
-            }
+            val mass = validateInput(
+                massInput,
+                getString(R.string.mass_input_error),
+                Pair({result -> result != 0}, getString(R.string.mass_neq_zero))
+            )
 
             // read height
-            var height: Int
-            try {
-                height = heightInput.text.toString().toInt()
-            }
-            catch (e: NumberFormatException) {
-                heightInput.error = getString(R.string.height_input_error)
-                height = -1
-            }
-            if(height == 0) {
-                heightInput.error = getString(R.string.height_neq_zero)
-                height = -1
-            }
+            val height = validateInput(
+                heightInput,
+                getString(R.string.height_input_error),
+                Pair({result -> result != 0}, getString(R.string.height_neq_zero))
+            )
 
             //update state
             state.setMassAndHeight(mass, height)
@@ -68,23 +54,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
+
         outState?.putBundle("state", state.toBundle())
-        outState?.putString("result", bmiResult.text.toString())
-        outState?.putString("category", bmiCategory.text.toString())
-        outState?.putInt("color", bmiResult.currentTextColor)
-        outState?.putBoolean("imperial", state.getImperialUnits())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        val stateBundle = savedInstanceState!!.getBundle("state")
-        val mass = stateBundle!!.getInt("mass")
-        val height = stateBundle.getInt("height")
-        val foundImperialUnits = stateBundle.getBoolean("imperialUnits")
-
-        state.setImperialUnits(foundImperialUnits)
-        state.setMassAndHeight(mass, height)
+        val restoredBundle = savedInstanceState?.getBundle("state")
+        if (restoredBundle != null) {
+            state.fromBundle(restoredBundle)
+        }
+        else {
+            throw IllegalStateException("Null state bundle!")
+        }
 
         updateTextViews()
     }
@@ -118,11 +101,33 @@ class MainActivity : AppCompatActivity() {
         massDescription.text = state.getMassDescription()
         heightDescription.text = state.getHeightDescription()
 
-        bmiResult.text = state.getBmi().toString()
+        bmiResult.text = state.getBmi()?.toString() ?: getString(R.string.empty_text)
         bmiCategory.text = state.getShortDescription()
 
         bmiResult.setTextColor(state.getColor())
         bmiCategory.setTextColor(state.getColor())
         bmiInfoButton.background.setTint(state.getColor())
+    }
+
+    private fun validateInput(field: EditText, errorMessage: String, vararg validationRules: Pair<(Int) -> (Boolean), String>): Int? {
+        var result: Int? = null
+        var ruleBroken = false
+
+        try {
+            result = field.text.toString().toInt()
+
+
+            for(rule in validationRules) {
+                if(!rule.first(result)) {
+                    field.error = rule.second
+                    ruleBroken = true
+                    break
+                }
+            }
+        } catch (e: NumberFormatException) {
+            field.error = errorMessage
+        }
+
+        return if(ruleBroken) null else result
     }
 }
