@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        state.setResources(resources)
+
         countBmiButton.setOnClickListener {
             //TODO: some validation methods?
             // read mass
@@ -55,8 +57,10 @@ class MainActivity : AppCompatActivity() {
         bmiInfoButton.setOnClickListener {
             if (bmiResult.text.toString() != "") {
                 val intent = Intent(this, BmiInfo::class.java)
-                intent.putExtra("bmiResult", bmiResult.text.toString())
-                intent.putExtra("bmiCategory", bmiCategory.text.toString())
+                intent.putExtra("result", state.getBmi().toString())
+                intent.putExtra("category", state.getShortDescription())
+                intent.putExtra("description", state.getLongDescription())
+                intent.putExtra("color", state.getColor())
                 startActivity(intent)
             }
         }

@@ -10,7 +10,14 @@ class BmiInfo : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bmi_info)
 
-        infoBmiResult.text = intent.getStringExtra("bmiResult")
-        infoBmiCategory.text = intent.getStringExtra("bmiCategory")
+        val stateBundle = intent.getBundleExtra("state")
+
+        infoBmiResult.text = intent.getStringExtra("result")
+        infoBmiCategory.text = intent.getStringExtra("category")
+        infoBmiDescription.text = intent.getStringExtra("description")
+
+        // TODO: get default color
+        infoBmiResult.setTextColor(intent.getIntExtra("color", 0xFFFFFF))
+        infoBmiCategory.setTextColor(intent.getIntExtra("color", 0xFFFFFF))
     }
 }
