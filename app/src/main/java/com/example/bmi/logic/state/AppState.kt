@@ -10,16 +10,15 @@ import java.math.RoundingMode
 
 class AppState {
     companion object {
-        const val UNITS_KEY = "imperialUnits"
+        const val UNITS_KEY = "usingImperialUnits"
         const val INVALID_STATE_KEY = "invalidState"
         const val MASS_KEY = "mass"
         const val HEIGHT_KEY = "height"
+
+        const val INVALID_STATE_MSG = "Operation isn't possible because there's no valid input to the BMI calculator."
     }
 
-    private lateinit var resources: Resources
-
-    private var imperialUnits: Boolean = false
-    private var bmi = BMI(0, 0)
+    private var bmi = BMI(0, 0, false)
     private var isInInvalidState = true
 
     fun setMassAndHeight(mass: Int?, height: Int?) {
@@ -34,69 +33,59 @@ class AppState {
     }
 
     fun getBmi(): BigDecimal? = if (isInInvalidState) null
-                                else BigDecimal.valueOf(bmi.countBMI(imperialUnits)).setScale(2, RoundingMode.HALF_UP)
+                                else BigDecimal.valueOf(bmi.countBMI()).setScale(2, RoundingMode.HALF_UP)
 
-    fun getMassDescription(): String {
-        return if(imperialUnits) {
+    fun getMassDescription(resources: Resources): String {
+        return if(bmi.usingImperialUnits) {
             resources.getString(R.string.mass_description_lbs)
         } else {
             resources.getString(R.string.mass_description_kg)
         }
     }
 
-    fun getHeightDescription(): String {
-        return if(imperialUnits) {
+    fun getHeightDescription(resources: Resources): String {
+        return if(bmi.usingImperialUnits) {
             resources.getString(R.string.height_description_inch)
         } else {
             resources.getString(R.string.height_description_cm)
         }
     }
 
-    fun getShortDescription(): String {
+    fun getShortDescription(resources: Resources): String {
         return if(isInInvalidState) {
             resources.getString(R.string.empty_text)
         } else {
-            val result = bmi.countBMI(imperialUnits)
-            when {
-                result < 18.5 -> resources.getString(R.string.underweight)
-                result < 25 -> resources.getString(R.string.normal)
-                result < 30 -> resources.getString(R.string.overweight)
-                else -> resources.getString(R.string.obese)
-            }
+            bmi.getCategory().getShortDescription(resources)
         }
     }
 
-    fun getLongDescription(): String {
+    fun getLongDescription(resources: Resources): String {
         return if(isInInvalidState) {
             resources.getString(R.string.empty_text)
         } else {
-            val result = bmi.countBMI(imperialUnits)
-            return when {
-
-                result < 18.5 -> resources.getString(R.string.underweight_description)
-                result < 25 -> resources.getString(R.string.normal_description)
-                result < 30 -> resources.getString(R.string.overweight_description)
-                else -> resources.getString(R.string.obese_description)
-            }
+            bmi.getCategory().getLongDescription(resources)
         }
     }
 
-    fun getColor(): Int {
+    fun getColor(resources: Resources): Int {
         return if(isInInvalidState) {
             ResourcesCompat.getColor(resources, R.color.colorPrimary, null)
         } else {
-            val result = bmi.countBMI(imperialUnits)
-            when {
-                result < 18.5 -> ResourcesCompat.getColor(resources, R.color.persianGreen, null)
-                result < 25 -> ResourcesCompat.getColor(resources, R.color.lapisLazuli, null)
-                result < 30 -> ResourcesCompat.getColor(resources, R.color.pompeianRed, null)
-                else -> ResourcesCompat.getColor(resources, R.color.flamboyantViolet, null)
-            }
+            bmi.getCategory().getColor(resources)
+        }
+    }
+
+    fun getPictureId(): Int {
+        return if(isInInvalidState) {
+            throw IllegalStateException(INVALID_STATE_MSG)
+        }
+        else {
+            bmi.getCategory().pictureId
         }
     }
 
     fun getImperialUnits(): Boolean {
-        return imperialUnits
+        return bmi.usingImperialUnits
     }
 
     fun isValid(): Boolean {
@@ -104,14 +93,14 @@ class AppState {
     }
 
     fun changeUnits() {
-        imperialUnits = !imperialUnits
+        bmi.usingImperialUnits = !bmi.usingImperialUnits
         isInInvalidState = true
     }
 
     fun toBundle(): Bundle {
         val resultBundle = Bundle()
 
-        resultBundle.putBoolean(UNITS_KEY, imperialUnits)
+        resultBundle.putBoolean(UNITS_KEY, bmi.usingImperialUnits)
         resultBundle.putBoolean(INVALID_STATE_KEY, isInInvalidState)
 
         if(!isInInvalidState) {
@@ -123,16 +112,12 @@ class AppState {
     }
 
     fun fromBundle(bundle: Bundle) {
-        imperialUnits = bundle.getBoolean(UNITS_KEY)
+        bmi.usingImperialUnits = bundle.getBoolean(UNITS_KEY)
         isInInvalidState = bundle.getBoolean(INVALID_STATE_KEY)
 
         if(!isInInvalidState) {
             bmi.height = bundle.getInt(HEIGHT_KEY)
             bmi.mass = bundle.getInt(MASS_KEY)
         }
-    }
-
-    fun setResources(resources: Resources) {
-        this.resources = resources
     }
 }
