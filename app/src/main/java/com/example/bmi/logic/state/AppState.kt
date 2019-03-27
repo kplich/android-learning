@@ -2,6 +2,7 @@ package com.example.bmi.logic.state
 
 import android.content.res.Resources
 import android.os.Bundle
+import androidx.core.content.res.ResourcesCompat
 import com.example.bmi.R
 import com.example.bmi.logic.bmi.BMI
 import com.example.bmi.logic.bmi.BMIFromKgCm
@@ -10,6 +11,12 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class AppState {
+    companion object {
+        const val UNITS_KEY = "imperialUnits"
+        const val INVALID_STATE_KEY = "invalidState"
+        const val MASS_KEY = "mass"
+        const val HEIGHT_KEY = "height"
+    }
 
     private lateinit var resources: Resources
 
@@ -33,17 +40,17 @@ class AppState {
 
     fun getMassDescription(): String {
         return if(imperialUnits) {
-            "Mass [lbs]"
+            resources.getString(R.string.mass_description_lbs)
         } else {
-            "Mass [kg]"
+            resources.getString(R.string.mass_description_kg)
         }
     }
 
     fun getHeightDescription(): String {
         return if(imperialUnits) {
-            "Height [inch]"
+            resources.getString(R.string.height_description_inch)
         } else {
-            "Height [cm]"
+            resources.getString(R.string.height_description_cm)
         }
     }
 
@@ -78,15 +85,14 @@ class AppState {
 
     fun getColor(): Int {
         return if(isInInvalidState) {
-            resources.getColor(R.color.colorPrimary)
+            ResourcesCompat.getColor(resources, R.color.colorPrimary, null)
         } else {
             val result = bmi.countBMI()
             when {
-                // TODO: deal with getColor
-                result < 18.5 -> resources.getColor(R.color.persianGreen)
-                result < 25 -> resources.getColor(R.color.lapisLazuli)
-                result < 30 -> resources.getColor(R.color.pompeianRed)
-                else -> resources.getColor(R.color.flamboyantViolet)
+                result < 18.5 -> ResourcesCompat.getColor(resources, R.color.persianGreen, null)
+                result < 25 -> ResourcesCompat.getColor(resources, R.color.lapisLazuli, null)
+                result < 30 -> ResourcesCompat.getColor(resources, R.color.pompeianRed, null)
+                else -> ResourcesCompat.getColor(resources, R.color.flamboyantViolet, null)
             }
         }
     }
@@ -115,24 +121,27 @@ class AppState {
     fun toBundle(): Bundle {
         val resultBundle = Bundle()
 
-        resultBundle.putBoolean("imperialUnits", imperialUnits)
-        resultBundle.putBoolean("invalidState", isInInvalidState)
+        resultBundle.putBoolean(UNITS_KEY, imperialUnits)
+        resultBundle.putBoolean(INVALID_STATE_KEY, isInInvalidState)
 
         if(!isInInvalidState) {
-            resultBundle.putInt("mass", bmi.mass)
-            resultBundle.putInt("height", bmi.height)
+            resultBundle.putInt(MASS_KEY, bmi.mass)
+            resultBundle.putInt(HEIGHT_KEY, bmi.height)
         }
 
         return resultBundle
     }
 
     fun fromBundle(bundle: Bundle) {
-        imperialUnits = bundle.getBoolean("imperialUnits")
-        isInInvalidState = bundle.getBoolean("invalidState")
+        imperialUnits = bundle.getBoolean(UNITS_KEY)
+        isInInvalidState = bundle.getBoolean(INVALID_STATE_KEY)
 
         if(!isInInvalidState) {
-            bmi = if(imperialUnits) BMIFromLbsInch(bundle.getInt("mass"), bundle.getInt("height"))
-                  else BMIFromKgCm(bundle.getInt("mass"), bundle.getInt("height"))
+            bmi = if(imperialUnits) {
+                BMIFromLbsInch(bundle.getInt(MASS_KEY), bundle.getInt(HEIGHT_KEY))
+            } else {
+                BMIFromKgCm(bundle.getInt(MASS_KEY), bundle.getInt(HEIGHT_KEY))
+            }
         }
     }
 

@@ -8,10 +8,20 @@ import android.view.MenuItem
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.EditText
+import androidx.core.content.ContextCompat
 import com.example.bmi.logic.state.AppState
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity: AppCompatActivity() {
+    companion object {
+        const val RESULT_KEY = "result"
+        const val CATEGORY_KEY = "category"
+        const val DESCRIPTION_KEY = "description"
+        const val COLOR_KEY = "color"
+        const val DEFAULT_COLOR_KEY = "default color"
+        const val STATE_BUNDLE_KEY = "state"
+        const val NULL_STATE_BUNDLE_MSG = "Null state bundle!"
+    }
 
     private val state = AppState()
 
@@ -30,10 +40,11 @@ class MainActivity: AppCompatActivity() {
 
         bmiInfoButton.setOnClickListener {
             val intent = Intent(this, BmiInfo::class.java)
-            intent.putExtra("result", state.getBmi().toString())
-            intent.putExtra("category", state.getShortDescription())
-            intent.putExtra("description", state.getLongDescription())
-            intent.putExtra("color", state.getColor())
+            intent.putExtra(RESULT_KEY, state.getBmi().toString())
+            intent.putExtra(CATEGORY_KEY, state.getShortDescription())
+            intent.putExtra(DESCRIPTION_KEY, state.getLongDescription())
+            intent.putExtra(COLOR_KEY, state.getColor())
+            intent.putExtra(DEFAULT_COLOR_KEY, ContextCompat.getColor(this, R.color.colorPrimary))
             startActivity(intent)
         }
     }
@@ -41,18 +52,18 @@ class MainActivity: AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
 
-        outState?.putBundle("state", state.toBundle())
+        outState?.putBundle(STATE_BUNDLE_KEY, state.toBundle())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        val restoredBundle = savedInstanceState?.getBundle("state")
+        val restoredBundle = savedInstanceState?.getBundle(STATE_BUNDLE_KEY)
         if (restoredBundle != null) {
             state.fromBundle(restoredBundle)
         }
         else {
-            throw IllegalStateException("Null state bundle!")
+            throw IllegalStateException(NULL_STATE_BUNDLE_MSG)
         }
 
         updateUI()

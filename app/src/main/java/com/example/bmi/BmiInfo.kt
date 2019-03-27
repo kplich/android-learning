@@ -5,19 +5,21 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_bmi_info.*
 
 class BmiInfo : AppCompatActivity() {
+    companion object {
+        const val DEFAULT_COLOR = 0xFFFFFF
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bmi_info)
 
-        val stateBundle = intent.getBundleExtra("state")
+        infoBmiResult.text = intent.getStringExtra(MainActivity.RESULT_KEY)
+        infoBmiCategory.text = intent.getStringExtra(MainActivity.CATEGORY_KEY)
+        infoBmiDescription.text = intent.getStringExtra(MainActivity.DESCRIPTION_KEY)
 
-        infoBmiResult.text = intent.getStringExtra("result")
-        infoBmiCategory.text = intent.getStringExtra("category")
-        infoBmiDescription.text = intent.getStringExtra("description")
+        val primaryColor = intent.getIntExtra(MainActivity.DEFAULT_COLOR_KEY, DEFAULT_COLOR)
 
-        // TODO: get default color
-        infoBmiResult.setTextColor(intent.getIntExtra("color", 0xFFFFFF))
-        infoBmiCategory.setTextColor(intent.getIntExtra("color", 0xFFFFFF))
+        infoBmiResult.setTextColor(intent.getIntExtra(MainActivity.COLOR_KEY, primaryColor))
+        infoBmiCategory.setTextColor(intent.getIntExtra(MainActivity.COLOR_KEY, primaryColor))
     }
 }
