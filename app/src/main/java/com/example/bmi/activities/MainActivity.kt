@@ -1,5 +1,6 @@
 package com.example.bmi.activities
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.View.VISIBLE
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.example.bmi.HistoryPersistence
 import com.example.bmi.R
 import com.example.bmi.activities.history.History
 import com.example.bmi.logic.state.AppState
@@ -42,6 +44,14 @@ class MainActivity: AppCompatActivity() {
             )))
             state.setMassAndHeight(mass, height) // update state
             updateUI() // update interface
+
+            if(state.isValid()) {
+                //that's the way it is
+                //HistoryPersistence.addEntry(state.getRecord(resources).toString(), this)
+
+                //that's the way I'd like it to be, more or less?
+                HistoryPersistence.addEntry(state.getRecord(resources), getSharedPreferences(HistoryPersistence.HISTORY_PREFERENCES_KEY, Context.MODE_PRIVATE))
+            }
         }
 
         mainInfoButton.setOnClickListener {

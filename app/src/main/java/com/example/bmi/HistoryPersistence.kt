@@ -11,23 +11,24 @@ class HistoryPersistence {
         private const val ITEMS_KEY = "items"
         private const val NUMBER_OF_ITEMS = 10
 
-        fun saveBmi(record: BmiRecord, preferences: SharedPreferences) {
-            val history = preferences.getStringSet(ITEMS_KEY, mutableSetOf())
+        fun addEntry(record: BmiRecord, preferences: SharedPreferences) {
 
-            var mlhistory = history.toMutableList()
-            mlhistory.sortDescending() //TODO: what here???
-            mlhistory = mlhistory.take(NUMBER_OF_ITEMS - 1).toMutableList()
-            mlhistory.add(0, record.toString())
+            val history = preferences.getStringSet(ITEMS_KEY, mutableSetOf()).toMutableList()
+            //history.sortDescending() //TODO: what here???
+            //history = history.take(NUMBER_OF_ITEMS - 1).toMutableList()
+            history.add(0, record.toString())
 
             with(preferences.edit()) {
-                putStringSet(ITEMS_KEY, mlhistory.toMutableSet())
+                putStringSet(ITEMS_KEY, history.toMutableSet())
                 apply() //TODO: what's going on here?
             }
         }
 
-        fun loadBmi(activity: Activity): MutableSet<String> {
+        fun getEntries(activity: Activity): List<BmiRecord> {
+
             val sharedPrefs = activity.getSharedPreferences(HISTORY_PREFERENCES_KEY, Context.MODE_PRIVATE)
-            return sharedPrefs.getStringSet(HISTORY_PREFERENCES_KEY, mutableSetOf())!!
+            val stringSet = sharedPrefs.getStringSet(HISTORY_PREFERENCES_KEY, mutableSetOf())!!
+            return stringSet.map{input -> BmiRecord.fromString(input)}.toMutableList()
         }
 
         fun isEmpty(activity: Activity): Boolean {

@@ -8,6 +8,8 @@ import com.example.bmi.logic.bmi.BMI
 import com.example.bmi.logic.bmi.BmiRecord
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AppState {
     companion object {
@@ -123,6 +125,11 @@ class AppState {
     }
 
     fun getRecord(resources: Resources): BmiRecord {
-        return bmi.getRecord(resources)
+        return BmiRecord(
+            getBmi().toString(),
+            getShortDescription(resources),
+            SimpleDateFormat("dd.MM.yyyy").format(Date()),
+            getPictureId()
+        )
     }
 }

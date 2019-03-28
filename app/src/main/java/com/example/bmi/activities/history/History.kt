@@ -17,15 +17,10 @@ class History : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
 
-        viewManager = LinearLayoutManager(this)
-
-        val values = HistoryPersistence.loadBmi(this).toMutableList()
-        viewAdapter = HistoryAdapter(values)
-
-        recyclerView = findViewById<RecyclerView>(R.id.history_recycler_view).apply {
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
+        recyclerView = findViewById<RecyclerView>(R.id.history_recycler_view).also {
+            it.setHasFixedSize(true)
+            it.layoutManager = LinearLayoutManager(this)
+            it.adapter = HistoryAdapter(HistoryPersistence.getEntries(this))
         }
     }
 }
