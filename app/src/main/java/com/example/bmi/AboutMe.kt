@@ -10,7 +10,7 @@ class AboutMe : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about_me)
 
-        aboutMeButton.setOnClickListener {
+        aboutButton.setOnClickListener {
             Toast.makeText(this, getString(R.string.about_me_toast), Toast.LENGTH_SHORT).show()
         }
     }

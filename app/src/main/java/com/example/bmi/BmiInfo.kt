@@ -24,7 +24,7 @@ class BmiInfo : AppCompatActivity() {
         infoBmiResult.setTextColor(intent.getIntExtra(MainActivity.COLOR_KEY, primaryColor))
         infoBmiCategory.setTextColor(intent.getIntExtra(MainActivity.COLOR_KEY, primaryColor))
 
-        bmiInfoImage.setImageDrawable(
+        infoBmiImage.setImageDrawable(
             ContextCompat.getDrawable(
                 this,
                 intent.getIntExtra(MainActivity.PICTURE_KEY, R.drawable.default_pic)

@@ -30,14 +30,14 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        countBmiButton.setOnClickListener {
-            val mass = validateInput(massInput, getString(R.string.mass_input_error), Pair({result -> result != 0}, getString(R.string.mass_neq_zero)))
-            val height = validateInput(heightInput, getString(R.string.height_input_error), Pair({result -> result != 0}, getString(R.string.height_neq_zero)))
+        mainCountButton.setOnClickListener {
+            val mass = validateInput(mainMassInputField, getString(R.string.mass_input_error), Pair({ result -> result != 0}, getString(R.string.mass_neq_zero)))
+            val height = validateInput(mainHeightInputField, getString(R.string.height_input_error), Pair({ result -> result != 0}, getString(R.string.height_neq_zero)))
             state.setMassAndHeight(mass, height) // update state
             updateUI() // update interface
         }
 
-        bmiInfoButton.setOnClickListener {
+        mainInfoButton.setOnClickListener {
             val intent = Intent(this, BmiInfo::class.java)
             intent.putExtra(RESULT_KEY, state.getBmi().toString())
             intent.putExtra(CATEGORY_KEY, state.getShortDescription(resources))
@@ -100,24 +100,24 @@ class MainActivity: AppCompatActivity() {
      * Uses information from application state.
      */
     private fun updateUI() {
-        massDescription.text = state.getMassDescription(resources)
-        heightDescription.text = state.getHeightDescription(resources)
+        mainMassTitle.text = state.getMassDescription(resources)
+        mainHeightTitle.text = state.getHeightDescription(resources)
 
-        bmiResult.text = state.getBmi()?.toString() ?: getString(R.string.empty_text)
-        bmiCategory.text = state.getShortDescription(resources)
+        mainBmiResult.text = state.getBmi()?.toString() ?: getString(R.string.empty_text)
+        mainBmiCategory.text = state.getShortDescription(resources)
 
-        bmiResult.setTextColor(state.getColor(resources))
-        bmiCategory.setTextColor(state.getColor(resources))
+        mainBmiResult.setTextColor(state.getColor(resources))
+        mainBmiCategory.setTextColor(state.getColor(resources))
 
         if(state.isValid()) {
-            bmiInfoButton.visibility = VISIBLE
-            bmiInfoButton.isEnabled = true
-            bmiInfoButton.background.setTint(state.getColor(resources))
+            mainInfoButton.visibility = VISIBLE
+            mainInfoButton.isEnabled = true
+            mainInfoButton.background.setTint(state.getColor(resources))
         }
         else {
-            bmiInfoButton.visibility = INVISIBLE
-            bmiInfoButton.isEnabled = false
-            bmiInfoButton.background.setTint(state.getColor(resources))
+            mainInfoButton.visibility = INVISIBLE
+            mainInfoButton.isEnabled = false
+            mainInfoButton.background.setTint(state.getColor(resources))
         }
     }
 

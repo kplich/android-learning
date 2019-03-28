@@ -15,40 +15,44 @@
 
         <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="255dp"
-                android:id="@+id/imageView"
-                app:srcCompat="@drawable/spongebob"/>
+                android:layout_height="0dp"
+                android:id="@+id/aboutImage"
+                app:srcCompat="@drawable/spongebob"
+                android:layout_weight="1"
+                android:contentDescription="@string/about_photo_description"/>
 
         <TextView
                 android:text="@string/about_me_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2"
+                android:id="@+id/aboutNickname"
                 android:textColor="@color/dehydratedGreen"
-                android:textSize="24sp"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"/>
+                android:textSize="@dimen/app_medium_text_size"
+                android:layout_marginTop="@dimen/about_margin_bottom_top"
+                android:layout_marginBottom="@dimen/about_margin_bottom_top"
+                android:layout_marginStart="@dimen/main_margin_start_end"
+                android:layout_marginEnd="@dimen/main_margin_start_end"/>
 
         <TextView
                 android:text="@string/about_me_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView3"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"/>
+                android:id="@+id/aboutDescription"
+                android:layout_marginTop="@dimen/about_margin_bottom_top"
+                android:layout_marginBottom="@dimen/about_margin_bottom_top"
+                android:layout_marginStart="@dimen/main_margin_start_end"
+                android:layout_marginEnd="@dimen/main_margin_start_end"
+                android:textAlignment="center"
+                android:textSize="@dimen/app_small_text_size"/>
 
         <Button
                 android:text="@string/about_me_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/aboutMeButton"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"/>
+                android:id="@+id/aboutButton"
+                android:layout_marginTop="@dimen/about_margin_bottom_top"
+                android:layout_marginBottom="@dimen/about_margin_bottom_top"
+                android:layout_marginStart="@dimen/main_margin_start_end"
+                android:layout_marginEnd="@dimen/main_margin_start_end"                />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,9 +11,9 @@
             android:text="@string/mass_description_kg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/massDescription"
+            android:id="@+id/mainMassTitle"
             android:layout_marginTop="@dimen/main_margin_top"
-            app:layout_constraintTop_toTopOf="@+id/photoGuideline"
+            app:layout_constraintTop_toTopOf="@+id/mainGuideline"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/main_margin_start_end"
             app:layout_constraintEnd_toEndOf="parent"
@@ -24,8 +24,8 @@
             android:layout_width="match_parent"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/massInput"
-            app:layout_constraintTop_toBottomOf="@+id/massDescription"
+            android:id="@+id/mainMassInputField"
+            app:layout_constraintTop_toBottomOf="@+id/mainMassTitle"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/main_margin_start_end"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +38,7 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/heightDescription"
+            android:id="@+id/mainHeightTitle"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/main_margin_start_end"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,15 +46,15 @@
             app:layout_constraintHorizontal_bias="0.0"
             android:text="@string/height_description_cm"
             android:layout_marginTop="@dimen/main_margin_top"
-            app:layout_constraintTop_toBottomOf="@+id/massInput"/>
+            app:layout_constraintTop_toBottomOf="@+id/mainMassInputField"/>
 
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/heightInput"
-            app:layout_constraintTop_toBottomOf="@+id/heightDescription"
+            android:id="@+id/mainHeightInputField"
+            app:layout_constraintTop_toBottomOf="@+id/mainHeightTitle"
             android:layout_marginStart="@dimen/main_margin_start_end"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="@dimen/main_margin_start_end"
@@ -65,7 +65,7 @@
     <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/photoGuideline"
+            android:id="@+id/mainGuideline"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.4"/>
 
@@ -73,7 +73,7 @@
             android:layout_width="0dp"
             tools:srcCompat="@drawable/healthy_obrazek"
             android:id="@+id/mainPhoto"
-            app:layout_constraintBottom_toTopOf="@+id/photoGuideline"
+            app:layout_constraintBottom_toTopOf="@+id/mainGuideline"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/main_margin_start_end"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,14 +81,14 @@
             android:layout_marginTop="@dimen/main_margin_top"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/healthy_obrazek"
-            android:contentDescription="@string/main_activity_photo_description"
+            android:contentDescription="@string/main_photo_description"
             android:layout_height="0dp"/>
 
     <Button
             android:text="@string/count_button_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/countBmiButton"
+            android:id="@+id/mainCountButton"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/main_margin_start_end"
             android:layout_marginBottom="@dimen/main_margin_bottom"
@@ -100,9 +100,9 @@
             android:text="@string/your_bmi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/yourBmi"
+            android:id="@+id/mainBmiTitle"
             android:layout_marginBottom="@dimen/main_margin_bottom"
-            app:layout_constraintBottom_toTopOf="@+id/bmiResult"
+            app:layout_constraintBottom_toTopOf="@+id/mainBmiResult"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/main_margin_start_end"
             app:layout_constraintStart_toStartOf="parent"
@@ -113,8 +113,8 @@
     <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/bmiResult"
-            app:layout_constraintBottom_toTopOf="@+id/bmiCategory"
+            android:id="@+id/mainBmiResult"
+            app:layout_constraintBottom_toTopOf="@+id/mainBmiCategory"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/main_margin_start_end"
             app:layout_constraintStart_toStartOf="parent"
@@ -128,21 +128,21 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bmiCategory"
             android:layout_marginBottom="@dimen/main_margin_bottom"
-            app:layout_constraintBottom_toTopOf="@+id/countBmiButton"
+            app:layout_constraintBottom_toTopOf="@+id/mainCountButton"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/main_margin_start_end"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/main_margin_start_end"
             android:visibility="visible"
-            android:textSize="@dimen/app_medium_text_size"/>
+            android:textSize="@dimen/app_medium_text_size"
+            android:id="@+id/mainBmiCategory"/>
 
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@android:drawable/ic_dialog_info"
-            android:id="@+id/bmiInfoButton"
+            android:id="@+id/mainInfoButton"
             android:layout_marginBottom="@dimen/main_margin_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

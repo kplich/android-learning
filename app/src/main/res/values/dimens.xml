@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="main_margin_start_end">8dp</dimen>
-    <dimen name="main_margin_top">8dp</dimen>
-    <dimen name="main_margin_bottom">8dp</dimen>
     <dimen name="app_big_text_size">34sp</dimen>
     <dimen name="app_medium_text_size">24sp</dimen>
     <dimen name="app_small_text_size">14sp</dimen>
+
+    <dimen name="main_margin_start_end">8dp</dimen>
+    <dimen name="main_margin_top">8dp</dimen>
+    <dimen name="main_margin_bottom">8dp</dimen>
+
+    <dimen name="about_margin_bottom_top">4dp</dimen>
+
+    <dimen name="info_margin_top">5dp</dimen>
+    <dimen name="info_margin_start_end">40dp</dimen>
+    <dimen name="info_description_height">100dp</dimen>
+    <dimen name="info_image_height">250dp</dimen>
 </resources>
