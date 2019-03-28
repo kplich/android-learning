@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_margin_start_end">8dp</dimen>
+    <dimen name="main_margin_top">8dp</dimen>
+    <dimen name="main_margin_bottom">8dp</dimen>
+    <dimen name="app_big_text_size">34sp</dimen>
+    <dimen name="app_medium_text_size">24sp</dimen>
+    <dimen name="app_small_text_size">14sp</dimen>
+</resources>
