@@ -5,9 +5,10 @@
     <string name="main_button_description">This button will show you more information about your BMI.</string>
     <string name="about_photo_description">Just a little picture of me.</string>
     <string name="info_photo_description">This photo contains an emoji representing the category of your BMI value.</string>
+    <string name="item_photo_description">This photo contains an emoji representing the category of your BMI value.</string>
 
     <string name="empty_text"></string>
-    <string name="about_me_menu_item_title">About me</string>
+    <string name="about_menu_item_title">About me</string>
     <string name="about_me_units_title">Imperial units</string>
     <string name="mass_description_kg">Mass [kg]</string>
     <string name="mass_description_lbs">Mass [lbs]</string>
@@ -34,4 +35,6 @@
     <string name="about_me_description">Android developer, producer, meme lover. Hire me!</string>
     <string name="about_me_button">DO NOT CLICK</string>
     <string name="about_me_toast">I\'m disappointed.</string>
+
+    <string name="history_menu_item_title">History</string>
 </resources>

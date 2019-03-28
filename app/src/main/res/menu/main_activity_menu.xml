@@ -2,12 +2,16 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-            android:title="@string/about_me_menu_item_title"
-            android:id="@+id/aboutMeItem"
+            android:title="@string/about_menu_item_title"
+            android:id="@+id/aboutMeMenuItem"
             android:checkable="false"/>
     <item
             android:title="@string/about_me_units_title"
-            android:id="@+id/aboutMeUnits"
+            android:id="@+id/unitsMenuItem"
             android:checkable="true"
-            android:saveEnabled="true"/>
+            android:saveEnabled="true"
+            />
+    <item
+            android:title="@string/history_menu_item_title"
+            android:id="@+id/historyMenuItem"/>
 </menu>

@@ -1,5 +1,7 @@
 package com.example.bmi.logic.bmi
 
+import android.content.res.Resources
+
 class BMI (var mass: Int, var height: Int, var usingImperialUnits: Boolean) {
     private fun fromKgCm(): Double {
         require(mass > 0) {"Mass must be greater than 0"}
@@ -26,5 +28,9 @@ class BMI (var mass: Int, var height: Int, var usingImperialUnits: Boolean) {
             result < 35 -> BmiCategory.OBESE
             else -> BmiCategory.NA
         }
+    }
+
+    fun getRecord(resources: Resources): BmiRecord {
+        return BmiRecord(this, resources)
     }
 }

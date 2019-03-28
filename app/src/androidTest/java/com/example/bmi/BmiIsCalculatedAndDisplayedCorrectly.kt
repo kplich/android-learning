@@ -8,6 +8,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import com.example.bmi.activities.MainActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

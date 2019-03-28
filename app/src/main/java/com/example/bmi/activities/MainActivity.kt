@@ -1,4 +1,4 @@
-package com.example.bmi
+package com.example.bmi.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,10 @@ import android.view.MenuItem
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.example.bmi.R
+import com.example.bmi.activities.history.History
 import com.example.bmi.logic.state.AppState
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -31,8 +34,12 @@ class MainActivity: AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mainCountButton.setOnClickListener {
-            val mass = validateInput(mainMassInputField, getString(R.string.mass_input_error), Pair({ result -> result != 0}, getString(R.string.mass_neq_zero)))
-            val height = validateInput(mainHeightInputField, getString(R.string.height_input_error), Pair({ result -> result != 0}, getString(R.string.height_neq_zero)))
+            val mass = validateInput(mainMassInputField, getString(R.string.mass_input_error), Pair({ result -> result != 0}, getString(
+                R.string.mass_neq_zero
+            )))
+            val height = validateInput(mainHeightInputField, getString(R.string.height_input_error), Pair({ result -> result != 0}, getString(
+                R.string.height_neq_zero
+            )))
             state.setMassAndHeight(mass, height) // update state
             updateUI() // update interface
         }
@@ -44,7 +51,10 @@ class MainActivity: AppCompatActivity() {
             intent.putExtra(DESCRIPTION_KEY, state.getLongDescription(resources))
             intent.putExtra(PICTURE_KEY, state.getPictureId())
             intent.putExtra(COLOR_KEY, state.getColor(resources))
-            intent.putExtra(DEFAULT_COLOR_KEY, ContextCompat.getColor(this, R.color.colorPrimary))
+            intent.putExtra(
+                DEFAULT_COLOR_KEY, ContextCompat.getColor(this,
+                    R.color.colorPrimary
+                ))
 
             startActivity(intent)
         }
@@ -72,18 +82,18 @@ class MainActivity: AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_activity_menu, menu)
-        menu?.findItem(R.id.aboutMeUnits)?.isChecked = state.getImperialUnits()
+        menu?.findItem(R.id.unitsMenuItem)?.isChecked = state.getImperialUnits()
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
-            R.id.aboutMeItem -> {
+            R.id.aboutMeMenuItem -> {
                 val intent = Intent(this, AboutMe::class.java)
                 startActivity(intent)
                 true
             }
-            R.id.aboutMeUnits -> {
+            R.id.unitsMenuItem -> {
                 state.changeUnits()
                 item.isChecked = state.getImperialUnits()
 
@@ -94,6 +104,13 @@ class MainActivity: AppCompatActivity() {
 
                 return true
             }
+            R.id.historyMenuItem -> {
+                Toast.makeText(this, "go to history", Toast.LENGTH_SHORT)
+
+                val intent = Intent(this, History::class.java)
+                startActivity(intent)
+                true
+            }
             else -> true
         }
     }
@@ -103,8 +120,8 @@ class MainActivity: AppCompatActivity() {
      * Uses information from application state.
      */
     private fun updateUI() {
-        mainMassTitle.text = state.getMassDescription(resources)
-        mainHeightTitle.text = state.getHeightDescription(resources)
+        mainMassTitle.text = state.getMassTitle(resources)
+        mainHeightTitle.text = state.getHeightTitle(resources)
 
         mainBmiResult.text = state.getBmi()?.toString() ?: getString(R.string.empty_text)
         mainBmiCategory.text = state.getShortDescription(resources)

@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.core.content.res.ResourcesCompat
 import com.example.bmi.R
 import com.example.bmi.logic.bmi.BMI
+import com.example.bmi.logic.bmi.BmiRecord
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -35,7 +36,7 @@ class AppState {
     fun getBmi(): BigDecimal? = if (isInInvalidState) null
                                 else BigDecimal.valueOf(bmi.countBMI()).setScale(2, RoundingMode.HALF_UP)
 
-    fun getMassDescription(resources: Resources): String {
+    fun getMassTitle(resources: Resources): String {
         return if(bmi.usingImperialUnits) {
             resources.getString(R.string.mass_description_lbs)
         } else {
@@ -43,7 +44,7 @@ class AppState {
         }
     }
 
-    fun getHeightDescription(resources: Resources): String {
+    fun getHeightTitle(resources: Resources): String {
         return if(bmi.usingImperialUnits) {
             resources.getString(R.string.height_description_inch)
         } else {
@@ -119,5 +120,9 @@ class AppState {
             bmi.height = bundle.getInt(HEIGHT_KEY)
             bmi.mass = bundle.getInt(MASS_KEY)
         }
+    }
+
+    fun getRecord(resources: Resources): BmiRecord {
+        return bmi.getRecord(resources)
     }
 }

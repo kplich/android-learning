@@ -9,17 +9,19 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".activities.history.History">
+        </activity>
         <activity
-                android:name=".BmiInfo"
-                android:parentActivityName=".MainActivity"
+                android:name=".activities.BmiInfo"
+                android:parentActivityName=".activities.MainActivity"
                 android:screenOrientation="portrait">
         </activity>
         <activity
-                android:name=".AboutMe"
-                android:parentActivityName=".MainActivity"
+                android:name=".activities.AboutMe"
+                android:parentActivityName=".activities.MainActivity"
                 android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

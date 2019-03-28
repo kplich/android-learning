@@ -14,4 +14,11 @@
     <dimen name="info_margin_start_end">40dp</dimen>
     <dimen name="info_description_height">100dp</dimen>
     <dimen name="info_image_height">250dp</dimen>
+
+    <dimen name="history_default_margin">8dp</dimen>
+
+    <dimen name="item_margin_top">8dp</dimen>
+    <dimen name="item_margin_bottom">8dp</dimen>
+    <dimen name="item_margin_start">8dp</dimen>
+    <dimen name="item_margin_end">8dp</dimen>
 </resources>
