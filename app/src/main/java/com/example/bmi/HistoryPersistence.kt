@@ -12,7 +12,6 @@ class HistoryPersistence {
         private const val NUMBER_OF_ITEMS = 10
 
         fun addEntry(record: BmiRecord, preferences: SharedPreferences) {
-
             val history = preferences.getStringSet(ITEMS_KEY, mutableSetOf()).toMutableList()
             //history.sortDescending() //TODO: what here???
             //history = history.take(NUMBER_OF_ITEMS - 1).toMutableList()
@@ -27,7 +26,7 @@ class HistoryPersistence {
         fun getEntries(activity: Activity): List<BmiRecord> {
 
             val sharedPrefs = activity.getSharedPreferences(HISTORY_PREFERENCES_KEY, Context.MODE_PRIVATE)
-            val stringSet = sharedPrefs.getStringSet(HISTORY_PREFERENCES_KEY, mutableSetOf())!!
+            val stringSet = sharedPrefs.getStringSet(ITEMS_KEY, mutableSetOf())!!
             return stringSet.map{input -> BmiRecord.fromString(input)}.toMutableList()
         }
 

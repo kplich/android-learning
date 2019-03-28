@@ -46,10 +46,6 @@ class MainActivity: AppCompatActivity() {
             updateUI() // update interface
 
             if(state.isValid()) {
-                //that's the way it is
-                //HistoryPersistence.addEntry(state.getRecord(resources).toString(), this)
-
-                //that's the way I'd like it to be, more or less?
                 HistoryPersistence.addEntry(state.getRecord(resources), getSharedPreferences(HistoryPersistence.HISTORY_PREFERENCES_KEY, Context.MODE_PRIVATE))
             }
         }

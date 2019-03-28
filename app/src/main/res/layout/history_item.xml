@@ -15,8 +15,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/item_margin_start"
-            android:textSize="@dimen/app_big_text_size"
-            android:text="22.28"/>
+            android:textSize="@dimen/app_big_text_size"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -24,12 +23,11 @@
             android:id="@+id/itemBmiCategory"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/item_margin_start"
-            android:layout_marginTop="@dimen/item_margin_top"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/item_margin_small_top"
+            android:layout_marginBottom="@dimen/item_margin_bottom"
             app:layout_constraintTop_toBottomOf="@+id/itemBmiResult"
             android:textSize="@dimen/app_medium_text_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="NORMAL WEIGHT"/>
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -38,10 +36,8 @@
             app:layout_constraintStart_toEndOf="@+id/itemBmiResult"
             app:layout_constraintTop_toTopOf="@+id/itemBmiResult"
             app:layout_constraintBottom_toBottomOf="@+id/itemBmiResult"
-            app:layout_constraintEnd_toEndOf="@+id/itemBmiCategory"
-            app:layout_constraintHorizontal_bias="1.0"
             android:textSize="@dimen/app_small_text_size"
-            android:text="28.03.2019"/>
+            app:layout_constraintEnd_toStartOf="@+id/itemImage"/>
 
     <ImageView
             android:layout_width="wrap_content"
@@ -53,8 +49,7 @@
             android:layout_marginTop="@dimen/item_margin_top"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/item_photo_description"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/item_margin_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/itemDate"
-            android:layout_marginStart="8dp"/>
+            />
 </androidx.constraintlayout.widget.ConstraintLayout>
