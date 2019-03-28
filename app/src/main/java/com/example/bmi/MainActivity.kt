@@ -87,6 +87,9 @@ class MainActivity: AppCompatActivity() {
                 state.changeUnits()
                 item.isChecked = state.getImperialUnits()
 
+                mainMassInputField.setText(R.string.empty_text)
+                mainHeightInputField.setText(R.string.empty_text)
+
                 updateUI()
 
                 return true
