@@ -23,17 +23,21 @@ class HistoryPersistence {
             }
         }
 
-        fun getEntries(activity: Activity): List<BmiRecord> {
-
-            val sharedPrefs = activity.getSharedPreferences(HISTORY_PREFERENCES_KEY, Context.MODE_PRIVATE)
-            val stringSet = sharedPrefs.getStringSet(ITEMS_KEY, mutableSetOf())!!
+        fun getEntries(preferences: SharedPreferences): List<BmiRecord> {
+            val stringSet = preferences.getStringSet(ITEMS_KEY, mutableSetOf())!!
             return stringSet.map{input -> BmiRecord.fromString(input)}.toMutableList()
         }
 
-        fun isEmpty(activity: Activity): Boolean {
-            val sharedPrefs = activity.getSharedPreferences(HISTORY_PREFERENCES_KEY, Context.MODE_PRIVATE)
-            val set = sharedPrefs.getStringSet(HISTORY_PREFERENCES_KEY, mutableSetOf())
+        fun isEmpty(preferences: SharedPreferences): Boolean {
+            val set = preferences.getStringSet(ITEMS_KEY, mutableSetOf())
             return set!!.size == 0
+        }
+
+        fun clearEntries(preferences: SharedPreferences) {
+            with(preferences.edit()) {
+                putStringSet(ITEMS_KEY, mutableListOf<String>().toMutableSet())
+                apply() //TODO: what's going on here?
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.bmi.activities
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -48,9 +49,11 @@ class MainActivity: AppCompatActivity() {
             if(state.isValid()) {
                 HistoryPersistence.addEntry(
                     state.getRecord(resources),
-                    getSharedPreferences(HistoryPersistence.HISTORY_PREFERENCES_KEY, Context.MODE_PRIVATE)
+                    prefs()
                 )
             }
+
+            invalidateOptionsMenu()
         }
 
         mainInfoButton.setOnClickListener {
@@ -92,6 +95,12 @@ class MainActivity: AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_activity_menu, menu)
         menu?.findItem(R.id.unitsMenuItem)?.isChecked = state.getImperialUnits()
+        menu!!.findItem(R.id.historyMenuItem).isEnabled = !HistoryPersistence.isEmpty(prefs())
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        menu!!.findItem(R.id.historyMenuItem).isEnabled = !HistoryPersistence.isEmpty(prefs())
         return true
     }
 
@@ -148,6 +157,8 @@ class MainActivity: AppCompatActivity() {
             mainInfoButton.isEnabled = false
             mainInfoButton.background.setTint(state.getColor(resources))
         }
+
+
     }
 
     /**
@@ -178,5 +189,10 @@ class MainActivity: AppCompatActivity() {
         }
 
         return if(ruleBroken) null else result
+    }
+
+    // TODO: repeated function!
+    private fun prefs(): SharedPreferences {
+        return getSharedPreferences(HistoryPersistence.HISTORY_PREFERENCES_KEY, Context.MODE_PRIVATE)
     }
 }

@@ -20,7 +20,9 @@ class ItemHolder(inflater: LayoutInflater, parent: ViewGroup):
         bmiResult.text = record.result
         bmiCategory.text = record.description
         itemDate.text = record.date
-        itemImage.setImageResource(record.pictureId)
+
+        // TODO: uncommenting this results in a ResourceNotFound exception
+        //itemImage.setImageResource(record.pictureId)
 
         val color = record.color
 

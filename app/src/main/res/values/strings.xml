@@ -37,4 +37,6 @@
     <string name="about_me_toast">I\'m disappointed.</string>
 
     <string name="history_menu_item_title">History</string>
+
+    <string name="clear_history_menu_item">Clear history</string>
 </resources>
