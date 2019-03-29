@@ -19,7 +19,7 @@ class ItemHolder(inflater: LayoutInflater, parent: ViewGroup):
     fun bind(record: BmiRecord) {
         bmiResult.text = record.result
         bmiCategory.text = record.description
-        itemDate.text = record.date
+        itemDate.text = BmiRecord.SIMPLE_DATE_FORMATTER.format(record.date)
 
         // TODO: uncommenting this results in a ResourceNotFound exception
         //itemImage.setImageResource(record.pictureId)
