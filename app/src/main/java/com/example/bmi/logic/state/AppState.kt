@@ -129,7 +129,8 @@ class AppState {
             getBmi().toString(),
             getShortDescription(resources),
             SimpleDateFormat("dd.MM.yyyy").format(Date()),
-            getPictureId()
+            getPictureId(),
+            getColor(resources)
         )
     }
 }

@@ -21,5 +21,10 @@ class ItemHolder(inflater: LayoutInflater, parent: ViewGroup):
         bmiCategory.text = record.description
         itemDate.text = record.date
         itemImage.setImageResource(record.pictureId)
+
+        val color = record.color
+
+        bmiResult.setTextColor(color)
+        bmiCategory.setTextColor(color)
     }
 }
