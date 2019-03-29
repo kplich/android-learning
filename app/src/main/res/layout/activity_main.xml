@@ -94,7 +94,8 @@
             android:layout_marginBottom="@dimen/main_margin_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/main_margin_start_end"/>
+            android:layout_marginEnd="@dimen/main_margin_start_end"
+            android:onClick="onCountBmiClicked"/>
 
     <TextView
             android:text="@string/your_bmi"
@@ -151,6 +152,7 @@
             android:tint="@color/white"
             android:backgroundTint="@color/colorPrimary"
             android:visibility="invisible"
-            android:contentDescription="@string/main_button_description"/>
+            android:contentDescription="@string/main_button_description"
+            android:onClick="onInfoClicked"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

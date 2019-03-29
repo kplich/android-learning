@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.EditText
@@ -35,41 +36,6 @@ class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        mainCountButton.setOnClickListener {
-            val mass = validateInput(mainMassInputField, getString(R.string.mass_input_error), Pair({ result -> result != 0}, getString(
-                R.string.mass_neq_zero
-            )))
-            val height = validateInput(mainHeightInputField, getString(R.string.height_input_error), Pair({ result -> result != 0}, getString(
-                R.string.height_neq_zero
-            )))
-            state.setMassAndHeight(mass, height) // update state
-            updateUI() // update interface
-
-            if(state.isValid()) {
-                HistoryPersistence.addEntry(
-                    state.getRecord(resources),
-                    prefs()
-                )
-            }
-
-            invalidateOptionsMenu()
-        }
-
-        mainInfoButton.setOnClickListener {
-            val intent = Intent(this, BmiInfo::class.java)
-            intent.putExtra(RESULT_KEY, state.getBmi().toString())
-            intent.putExtra(CATEGORY_KEY, state.getShortDescription(resources))
-            intent.putExtra(DESCRIPTION_KEY, state.getLongDescription(resources))
-            intent.putExtra(PICTURE_KEY, state.getPictureId())
-            intent.putExtra(COLOR_KEY, state.getColor(resources))
-            intent.putExtra(
-                DEFAULT_COLOR_KEY, ContextCompat.getColor(this,
-                    R.color.colorPrimary
-                ))
-
-            startActivity(intent)
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -131,6 +97,41 @@ class MainActivity: AppCompatActivity() {
             }
             else -> true
         }
+    }
+
+    fun onCountBmiClicked(view: View) {
+        val mass = validateInput(mainMassInputField, getString(R.string.mass_input_error), Pair({ result -> result != 0}, getString(
+            R.string.mass_neq_zero
+        )))
+        val height = validateInput(mainHeightInputField, getString(R.string.height_input_error), Pair({ result -> result != 0}, getString(
+            R.string.height_neq_zero
+        )))
+        state.setMassAndHeight(mass, height) // update state
+        updateUI() // update interface
+
+        if(state.isValid()) {
+            HistoryPersistence.addEntry(
+                state.getRecord(resources),
+                prefs()
+            )
+        }
+
+        invalidateOptionsMenu()
+    }
+
+    fun onInfoClicked(view: View) {
+        val intent = Intent(this, BmiInfo::class.java)
+        intent.putExtra(RESULT_KEY, state.getBmi().toString())
+        intent.putExtra(CATEGORY_KEY, state.getShortDescription(resources))
+        intent.putExtra(DESCRIPTION_KEY, state.getLongDescription(resources))
+        intent.putExtra(PICTURE_KEY, state.getPictureId())
+        intent.putExtra(COLOR_KEY, state.getColor(resources))
+        intent.putExtra(
+            DEFAULT_COLOR_KEY, ContextCompat.getColor(this,
+                R.color.colorPrimary
+            ))
+
+        startActivity(intent)
     }
 
     /**
