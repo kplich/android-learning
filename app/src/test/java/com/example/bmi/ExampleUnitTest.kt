@@ -18,13 +18,13 @@ class ExampleUnitTest {
 
     @Test
     fun from_valid_data_return_BMI() {
-        val actualBMI = BMI(65, 170).countBMI(false)
+        val actualBMI = BMI(65, 170, false).countBMI()
         assertEquals(22.491, actualBMI, 0.001)
     }
 
     @Test
     fun from_other_valid_data_return_BMI() {
-        val actualBMI = BMI(80, 190).countBMI(false)
+        val actualBMI = BMI(80, 190, false).countBMI()
         assertEquals(22.161, actualBMI, 0.001)
     }
 }

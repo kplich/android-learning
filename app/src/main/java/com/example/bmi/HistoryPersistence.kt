@@ -2,7 +2,6 @@ package com.example.bmi
 
 import android.content.SharedPreferences
 import com.example.bmi.logic.bmi.BmiRecord
-import java.lang.StringBuilder
 
 class HistoryPersistence {
     companion object {
@@ -46,10 +45,9 @@ class HistoryPersistence {
         private fun listToString(list: List<BmiRecord>): String {
             val sb = StringBuilder()
 
-            if(list.isEmpty()) {
+            if (list.isEmpty()) {
                 sb.append("")
-            }
-            else {
+            } else {
                 for (i in 0 until list.size - 1) {
                     sb.append(list[i].toString())
                     sb.append(LIST_DELIMITER)
@@ -61,7 +59,7 @@ class HistoryPersistence {
         }
 
         private fun stringToList(string: String): List<BmiRecord> {
-            return if(string.isEmpty()) emptyList() else string.split(LIST_DELIMITER).map { s -> BmiRecord.fromString(s) }
+            return if (string.isEmpty()) emptyList() else string.split(LIST_DELIMITER).map { s -> BmiRecord.fromString(s) }
         }
     }
 }

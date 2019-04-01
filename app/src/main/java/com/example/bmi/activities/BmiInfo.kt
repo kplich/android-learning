@@ -1,7 +1,7 @@
 package com.example.bmi.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.bmi.R
 import kotlinx.android.synthetic.main.activity_bmi_info.*

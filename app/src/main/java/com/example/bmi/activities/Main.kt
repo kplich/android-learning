@@ -3,7 +3,6 @@ package com.example.bmi.activities
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,6 +11,7 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.bmi.HistoryPersistence
 import com.example.bmi.R
@@ -19,7 +19,7 @@ import com.example.bmi.activities.history.History
 import com.example.bmi.logic.state.AppState
 import kotlinx.android.synthetic.main.activity_main.*
 
-class Main: AppCompatActivity() {
+class Main : AppCompatActivity() {
     companion object {
         const val RESULT_KEY = "result"
         const val CATEGORY_KEY = "category"
@@ -38,10 +38,10 @@ class Main: AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState?.putBundle(STATE_BUNDLE_KEY, state.toBundle())
+        outState.putBundle(STATE_BUNDLE_KEY, state.toBundle())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
@@ -50,8 +50,7 @@ class Main: AppCompatActivity() {
         val restoredBundle = savedInstanceState?.getBundle(STATE_BUNDLE_KEY)
         if (restoredBundle != null) {
             state.fromBundle(restoredBundle)
-        }
-        else {
+        } else {
             throw IllegalStateException(NULL_STATE_BUNDLE_MSG)
         }
 
@@ -100,16 +99,24 @@ class Main: AppCompatActivity() {
     }
 
     fun onCountBmiClicked(view: View) {
-        val mass = validateInput(mainMassInputField, getString(R.string.mass_input_error), Pair({ result -> result != 0}, getString(
-            R.string.mass_neq_zero
-        )))
-        val height = validateInput(mainHeightInputField, getString(R.string.height_input_error), Pair({ result -> result != 0}, getString(
-            R.string.height_neq_zero
-        )))
+        val mass = validateInput(
+            mainMassInputField, getString(R.string.mass_input_error), Pair(
+                { result -> result != 0 }, getString(
+                    R.string.mass_neq_zero
+                )
+            )
+        )
+        val height = validateInput(
+            mainHeightInputField, getString(R.string.height_input_error), Pair(
+                { result -> result != 0 }, getString(
+                    R.string.height_neq_zero
+                )
+            )
+        )
         state.setMassAndHeight(mass, height) // update state
         updateUI() // update interface
 
-        if(state.isValid()) {
+        if (state.isValid()) {
             HistoryPersistence.addEntry(
                 state.getRecord(resources),
                 prefs()
@@ -127,9 +134,11 @@ class Main: AppCompatActivity() {
         intent.putExtra(PICTURE_KEY, state.getPictureId())
         intent.putExtra(COLOR_KEY, state.getColor(resources))
         intent.putExtra(
-            DEFAULT_COLOR_KEY, ContextCompat.getColor(this,
+            DEFAULT_COLOR_KEY, ContextCompat.getColor(
+                this,
                 R.color.colorPrimary
-            ))
+            )
+        )
 
         startActivity(intent)
     }
@@ -148,12 +157,11 @@ class Main: AppCompatActivity() {
         mainBmiResult.setTextColor(state.getColor(resources))
         mainBmiCategory.setTextColor(state.getColor(resources))
 
-        if(state.isValid()) {
+        if (state.isValid()) {
             mainInfoButton.visibility = VISIBLE
             mainInfoButton.isEnabled = true
             mainInfoButton.background.setTint(state.getColor(resources))
-        }
-        else {
+        } else {
             mainInfoButton.visibility = INVISIBLE
             mainInfoButton.isEnabled = false
             mainInfoButton.background.setTint(state.getColor(resources))
@@ -170,7 +178,11 @@ class Main: AppCompatActivity() {
      * if validation fails
      * @return number conforming to given conditions or null when input doesn't conform to constraints
      */
-    private fun validateInput(field: EditText, errorMessage: String, vararg validationRules: Pair<(Int) -> (Boolean), String>): Int? {
+    private fun validateInput(
+        field: EditText,
+        errorMessage: String,
+        vararg validationRules: Pair<(Int) -> (Boolean), String>
+    ): Int? {
         var result: Int? = null
         var ruleBroken = false
 
@@ -178,8 +190,8 @@ class Main: AppCompatActivity() {
             result = field.text.toString().toInt()
 
 
-            for(rule in validationRules) {
-                if(!rule.first(result)) {
+            for (rule in validationRules) {
+                if (!rule.first(result)) {
                     field.error = rule.second
                     ruleBroken = true
                     break
@@ -189,10 +201,9 @@ class Main: AppCompatActivity() {
             field.error = errorMessage
         }
 
-        return if(ruleBroken) null else result
+        return if (ruleBroken) null else result
     }
 
-    // TODO: repeated function!
     private fun prefs(): SharedPreferences {
         return getSharedPreferences(HistoryPersistence.HISTORY_PREFERENCES_KEY, Context.MODE_PRIVATE)
     }

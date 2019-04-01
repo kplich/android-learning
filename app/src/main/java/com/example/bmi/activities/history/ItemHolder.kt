@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bmi.R
 import com.example.bmi.logic.bmi.BmiRecord
 
-class ItemHolder(inflater: LayoutInflater, parent: ViewGroup):
+class ItemHolder(inflater: LayoutInflater, parent: ViewGroup) :
     RecyclerView.ViewHolder(inflater.inflate(R.layout.history_item, parent, false)) {
 
     private val bmiResult: TextView = itemView.findViewById(R.id.itemBmiResult)

@@ -8,7 +8,6 @@ import com.example.bmi.logic.bmi.BMI
 import com.example.bmi.logic.bmi.BmiRecord
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AppState {
@@ -25,10 +24,9 @@ class AppState {
     private var isInInvalidState = true
 
     fun setMassAndHeight(mass: Int?, height: Int?) {
-        if(mass == null || height == null) {
+        if (mass == null || height == null) {
             isInInvalidState = true
-        }
-        else {
+        } else {
             bmi.mass = mass
             bmi.height = height
             isInInvalidState = false
@@ -36,10 +34,10 @@ class AppState {
     }
 
     fun getBmi(): BigDecimal? = if (isInInvalidState) null
-                                else BigDecimal.valueOf(bmi.countBMI()).setScale(2, RoundingMode.HALF_UP)
+    else BigDecimal.valueOf(bmi.countBMI()).setScale(2, RoundingMode.HALF_UP)
 
     fun getMassTitle(resources: Resources): String {
-        return if(bmi.usingImperialUnits) {
+        return if (bmi.usingImperialUnits) {
             resources.getString(R.string.mass_description_lbs)
         } else {
             resources.getString(R.string.mass_description_kg)
@@ -47,7 +45,7 @@ class AppState {
     }
 
     fun getHeightTitle(resources: Resources): String {
-        return if(bmi.usingImperialUnits) {
+        return if (bmi.usingImperialUnits) {
             resources.getString(R.string.height_description_inch)
         } else {
             resources.getString(R.string.height_description_cm)
@@ -55,7 +53,7 @@ class AppState {
     }
 
     fun getShortDescription(resources: Resources): String {
-        return if(isInInvalidState) {
+        return if (isInInvalidState) {
             resources.getString(R.string.empty_text)
         } else {
             bmi.getCategory().getShortDescription(resources)
@@ -63,7 +61,7 @@ class AppState {
     }
 
     fun getLongDescription(resources: Resources): String {
-        return if(isInInvalidState) {
+        return if (isInInvalidState) {
             resources.getString(R.string.empty_text)
         } else {
             bmi.getCategory().getLongDescription(resources)
@@ -71,7 +69,7 @@ class AppState {
     }
 
     fun getColor(resources: Resources): Int {
-        return if(isInInvalidState) {
+        return if (isInInvalidState) {
             ResourcesCompat.getColor(resources, R.color.colorPrimary, null)
         } else {
             bmi.getCategory().getColor(resources)
@@ -79,10 +77,9 @@ class AppState {
     }
 
     fun getPictureId(): Int {
-        return if(isInInvalidState) {
+        return if (isInInvalidState) {
             throw IllegalStateException(INVALID_STATE_MSG)
-        }
-        else {
+        } else {
             bmi.getCategory().pictureId
         }
     }
@@ -106,7 +103,7 @@ class AppState {
         resultBundle.putBoolean(UNITS_KEY, bmi.usingImperialUnits)
         resultBundle.putBoolean(INVALID_STATE_KEY, isInInvalidState)
 
-        if(!isInInvalidState) {
+        if (!isInInvalidState) {
             resultBundle.putInt(MASS_KEY, bmi.mass)
             resultBundle.putInt(HEIGHT_KEY, bmi.height)
         }
@@ -118,7 +115,7 @@ class AppState {
         bmi.usingImperialUnits = bundle.getBoolean(UNITS_KEY)
         isInInvalidState = bundle.getBoolean(INVALID_STATE_KEY)
 
-        if(!isInInvalidState) {
+        if (!isInInvalidState) {
             bmi.height = bundle.getInt(HEIGHT_KEY)
             bmi.mass = bundle.getInt(MASS_KEY)
         }

@@ -65,7 +65,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mainMassTitle"
                 android:imeOptions="flagNoExtractUi"
-                android:importantForAutofill="no"/>
+                android:importantForAutofill="no"
+                tools:targetApi="o"/>
 
         <TextView
                 android:text="@string/height_description_cm"
@@ -88,7 +89,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mainHeightTitle"
                 android:imeOptions="flagNoExtractUi"
-                android:importantForAutofill="no"/>
+                android:importantForAutofill="no"
+                tools:targetApi="o"/>
 
         <TextView
                 android:layout_width="0dp"

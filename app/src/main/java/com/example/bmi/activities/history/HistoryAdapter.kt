@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bmi.logic.bmi.BmiRecord
 
-class HistoryAdapter(private val list: List<BmiRecord>): RecyclerView.Adapter<ItemHolder>() {
+class HistoryAdapter(private val list: List<BmiRecord>) : RecyclerView.Adapter<ItemHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         return ItemHolder(LayoutInflater.from(parent.context), parent)
     }

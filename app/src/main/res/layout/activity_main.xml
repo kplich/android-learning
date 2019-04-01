@@ -33,7 +33,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/mass_fill_in_hint"
             android:visibility="visible"
-            android:importantForAutofill="no"/>
+            android:importantForAutofill="no"
+            tools:targetApi="o"/>
 
     <TextView
             android:layout_width="match_parent"
@@ -60,7 +61,8 @@
             android:layout_marginEnd="@dimen/main_margin_start_end"
             app:layout_constraintEnd_toEndOf="parent"
             android:hint="@string/height_fill_in_hint"
-            android:importantForAutofill="no"/>
+            android:importantForAutofill="no"
+            tools:targetApi="o"/>
 
     <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"

@@ -1,8 +1,8 @@
 package com.example.bmi.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.bmi.R
 import kotlinx.android.synthetic.main.activity_about_me.*
 
