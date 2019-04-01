@@ -19,7 +19,7 @@ import com.example.bmi.activities.history.History
 import com.example.bmi.logic.state.AppState
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity: AppCompatActivity() {
+class Main: AppCompatActivity() {
     companion object {
         const val RESULT_KEY = "result"
         const val CATEGORY_KEY = "category"

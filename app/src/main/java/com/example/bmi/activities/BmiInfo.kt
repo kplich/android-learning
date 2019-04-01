@@ -17,22 +17,22 @@ class BmiInfo : AppCompatActivity() {
 
 
 
-        infoBmiResult.text = intent.getStringExtra(MainActivity.RESULT_KEY)
-        infoBmiCategory.text = intent.getStringExtra(MainActivity.CATEGORY_KEY)
-        infoBmiDescription.text = intent.getStringExtra(MainActivity.DESCRIPTION_KEY)
+        infoBmiResult.text = intent.getStringExtra(Main.RESULT_KEY)
+        infoBmiCategory.text = intent.getStringExtra(Main.CATEGORY_KEY)
+        infoBmiDescription.text = intent.getStringExtra(Main.DESCRIPTION_KEY)
 
         val primaryColor = intent.getIntExtra(
-            MainActivity.DEFAULT_COLOR_KEY,
+            Main.DEFAULT_COLOR_KEY,
             DEFAULT_COLOR
         )
-        infoBmiResult.setTextColor(intent.getIntExtra(MainActivity.COLOR_KEY, primaryColor))
-        infoBmiCategory.setTextColor(intent.getIntExtra(MainActivity.COLOR_KEY, primaryColor))
+        infoBmiResult.setTextColor(intent.getIntExtra(Main.COLOR_KEY, primaryColor))
+        infoBmiCategory.setTextColor(intent.getIntExtra(Main.COLOR_KEY, primaryColor))
 
         infoBmiImage.setImageDrawable(
             ContextCompat.getDrawable(
                 this,
                 intent.getIntExtra(
-                    MainActivity.PICTURE_KEY,
+                    Main.PICTURE_KEY,
                     R.drawable.default_pic
                 )
             )
